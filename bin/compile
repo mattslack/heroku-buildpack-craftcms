@@ -43,9 +43,9 @@ else
 fi
 
 # Move Craft
-echo "-----> Installing CraftCMS to craft/app"
-mkdir -p ${BUILD_DIR}/craft/app
-cp -r ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft
+echo "-----> Installing CraftCMS to craft/"
+mkdir -p ${BUILD_DIR}/craft
+cp -r ${CRAFT_DIR}/craft ${BUILD_DIR}/craft
 
 # Default NGINX Config
 echo "-----> Setting up NGINX"
