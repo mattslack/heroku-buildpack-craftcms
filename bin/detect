@@ -1,7 +1,7 @@
 #!/bin/sh
 # Usage: bin/compile BUILD_DIR
 
-if [ -f $1/craft/config/db.php ]; then
+if [ -f $1/config/db.php ]; then
 	echo "CraftCMS"
 	exit 0
 else
