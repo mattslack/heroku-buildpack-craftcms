@@ -84,6 +84,7 @@ if [[ ! -f "./bin/start.sh" ]]; then
 	#!/usr/bin/env bash
 	# Write directories if not there
 	mkdir -p ./config ./storage ./vendor
+  mkdir -p ./storage/logs ./storage/runtime ./storage/backups
 	# Write proper directory permissions
 	chmod -R 744 {config,plugins,storage,web}
 	# Start NGINX
