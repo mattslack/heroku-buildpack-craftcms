@@ -56,6 +56,10 @@ else
 	echo "       Using config in app"
 fi
 
+# Install imagick
+echo "-----> Installing the PECL imagick extension"
+pecl install imagick
+
 # Default Composer.json
 echo "-----> Setting up Composer"
 if [ ! -f "$BUILD_DIR/composer.json" ]; then
