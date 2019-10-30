@@ -57,10 +57,10 @@ else
 fi
 
 # Install imagick
-echo "-----> Installing the PECL imagick extension"
-pear config-set php_ini /app/.heroku/php/etc/php/php.ini
-pecl config-set php_ini /app/.heroku/php/etc/php/php.ini
-pecl install imagick
+#echo "-----> Installing the PECL imagick extension"
+#pear config-set php_ini /app/.heroku/php/etc/php/php.ini
+#pecl config-set php_ini /app/.heroku/php/etc/php/php.ini
+#pecl install imagick
 
 # Default Composer.json
 echo "-----> Setting up Composer"
