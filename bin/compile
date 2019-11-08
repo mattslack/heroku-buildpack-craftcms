@@ -76,13 +76,16 @@ cd ${BUILD_DIR}
 
 if [[ ! -f "Procfile" ]]; then
   echo "web: bin/start.sh" > Procfile
-  notice_inline "No Procfile, using 'web: bin/start.sh'."
+  echo "No Procfile, using 'web: bin/start.sh'."
 fi
 
 # Setup Script
 mkdir -p ${BUILD_DIR}/bin
 cd ${BUILD_DIR}
 
+# Do any migrations
+echo "Running migrations"
+./craft migrate/all
 if [[ ! -f "./bin/start.sh" ]]; then
   echo "web: bin/start.sh" > Procfile
   notice_inline "No start script, creating bin/start.sh'."
