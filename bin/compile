@@ -13,15 +13,15 @@ mkdir -p ${BUILD_DIR} ${CACHE_DIR}
 
 # Set Craft Environment Variables
 for KEY in CRAFT_VERSION CRAFT_BUILD; do
-	[ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
+  [ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
 done
 
 if [ -z "$CRAFT_VERSION" ]; then
-	CRAFT_VERSION=2.6
+  CRAFT_VERSION=2.6
 fi
 
 if [ -z "$CRAFT_BUILD" ]; then
-	CRAFT_BUILD=2785
+  CRAFT_BUILD=2785
 fi
 
 # END CONFIG
@@ -32,14 +32,14 @@ CRAFT_DIR="${CACHE_DIR}/Craft-v3"
 # Download Craft
 echo "-----> Installing CraftCMS v3"
 if [ ! -d "$CRAFT_DIR" ]; then
-	echo "       Downloading new copy of v3"
-	cd ${CACHE_DIR}
-	curl -ko ./Craft-v3.zip --silent --max-time 60 --location ${CRAFT_URL}
-	mkdir -p ${CRAFT_DIR}
-	cd ${CRAFT_DIR}
-	jar xf ../Craft-v3.zip
+  echo "       Downloading new copy of v3"
+  cd ${CACHE_DIR}
+  curl -ko ./Craft-v3.zip --silent --max-time 60 --location ${CRAFT_URL}
+  mkdir -p ${CRAFT_DIR}
+  cd ${CRAFT_DIR}
+  jar xf ../Craft-v3.zip
 else
-	echo "       Installing v3 from cache"
+  echo "       Installing v3 from cache"
 fi
 
 # Move Craft
@@ -50,10 +50,10 @@ cp -r ${CRAFT_DIR}/craft ${BUILD_DIR}/craft
 # Default NGINX Config
 echo "-----> Setting up NGINX"
 if [ ! -f "$BUILD_DIR/nginx_app.conf" ]; then
-	echo "       Installing default nginx_app.conf"
-	cp ${BUILDPACK_DIR}/bin/util/nginx_app.conf ${BUILD_DIR}/nginx_app.conf
+  echo "       Installing default nginx_app.conf"
+  cp ${BUILDPACK_DIR}/bin/util/nginx_app.conf ${BUILD_DIR}/nginx_app.conf
 else
-	echo "       Using config in app"
+  echo "       Using config in app"
 fi
 
 # Install imagick
@@ -65,18 +65,18 @@ fi
 # Default Composer.json
 echo "-----> Setting up Composer"
 if [ ! -f "$BUILD_DIR/composer.json" ]; then
-	echo "       Installing default composer.json"
-	cp ${BUILDPACK_DIR}/bin/util/composer.json ${BUILD_DIR}/composer.json
+  echo "       Installing default composer.json"
+  cp ${BUILDPACK_DIR}/bin/util/composer.json ${BUILD_DIR}/composer.json
 else
-	echo "       Using config in app"
+  echo "       Using config in app"
 fi
 
 # Default Procfile
 cd ${BUILD_DIR}
 
 if [[ ! -f "Procfile" ]]; then
-	echo "web: bin/start.sh" > Procfile
-	notice_inline "No Procfile, using 'web: bin/start.sh'."
+  echo "web: bin/start.sh" > Procfile
+  notice_inline "No Procfile, using 'web: bin/start.sh'."
 fi
 
 # Setup Script
@@ -84,17 +84,17 @@ mkdir -p ${BUILD_DIR}/bin
 cd ${BUILD_DIR}
 
 if [[ ! -f "./bin/start.sh" ]]; then
-	echo "web: bin/start.sh" > Procfile
-	notice_inline "No start script, creating bin/start.sh'."
-	cat >>bin/start.sh <<EOF
-	#!/usr/bin/env bash
-	# Write directories if not there
-	mkdir -p ./config ./storage ./vendor
+  echo "web: bin/start.sh" > Procfile
+  notice_inline "No start script, creating bin/start.sh'."
+  cat >>bin/start.sh <<EOF
+  #!/usr/bin/env bash
+  # Write directories if not there
+  mkdir -p ./config ./storage ./vendor
   mkdir -p ./storage/logs ./storage/runtime ./storage/backups
-	# Write proper directory permissions
-	chmod -R 774 {config,storage,web}
-	# Start NGINX
-	vendor/bin/heroku-php-nginx -C nginx_app.conf web
+  # Write proper directory permissions
+  chmod -R 774 {config,storage,web}
+  # Start NGINX
+  vendor/bin/heroku-php-nginx -C nginx_app.conf web
 EOF
 fi
 
