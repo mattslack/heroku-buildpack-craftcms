@@ -83,9 +83,6 @@ fi
 mkdir -p ${BUILD_DIR}/bin
 cd ${BUILD_DIR}
 
-# Do any migrations
-echo "Running migrations"
-./craft migrate/all
 if [[ ! -f "./bin/start.sh" ]]; then
   echo "web: bin/start.sh" > Procfile
   notice_inline "No start script, creating bin/start.sh'."
@@ -96,6 +93,7 @@ if [[ ! -f "./bin/start.sh" ]]; then
   mkdir -p ./storage/logs ./storage/runtime ./storage/backups
   # Write proper directory permissions
   chmod -R 774 {config,storage,web}
+  ./craft migrate/all
   # Start NGINX
   vendor/bin/heroku-php-nginx -C nginx_app.conf web
 EOF
