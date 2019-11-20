@@ -53,7 +53,7 @@ cd ${BUILD_DIR}
 
 if [[ ! -f "./bin/start.sh" ]]; then
   echo "web: bin/start.sh" > Procfile
-  notice_inline "No start script, creating bin/start.sh'."
+  echo "No start script, creating bin/start.sh'."
   cat >>bin/start.sh <<EOF
   #!/usr/bin/env bash
   # Write directories if not there
