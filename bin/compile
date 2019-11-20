@@ -11,41 +11,9 @@ mkdir -p ${BUILD_DIR} ${CACHE_DIR}
 # Support end-user configured CRAFT_VERSION, and CRAFT_BUILD
 # This way, end-users can choose exactly which versions to run with.
 
-# Set Craft Environment Variables
-for KEY in CRAFT_VERSION CRAFT_BUILD; do
-  [ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
-done
-
-if [ -z "$CRAFT_VERSION" ]; then
-  CRAFT_VERSION=2.6
-fi
-
-if [ -z "$CRAFT_BUILD" ]; then
-  CRAFT_BUILD=2785
-fi
-
-# END CONFIG
 
 CRAFT_URL="https://craftcms.com/latest-v3.zip"
 CRAFT_DIR="${CACHE_DIR}/Craft-v3"
-
-# Download Craft
-echo "-----> Installing CraftCMS v3"
-if [ ! -d "$CRAFT_DIR" ]; then
-  echo "       Downloading new copy of v3"
-  cd ${CACHE_DIR}
-  curl -ko ./Craft-v3.zip --silent --max-time 60 --location ${CRAFT_URL}
-  mkdir -p ${CRAFT_DIR}
-  cd ${CRAFT_DIR}
-  jar xf ../Craft-v3.zip
-else
-  echo "       Installing v3 from cache"
-fi
-
-# Move Craft
-echo "-----> Installing CraftCMS to craft/"
-mkdir -p ${BUILD_DIR}/craft
-cp -r ${CRAFT_DIR}/craft ${BUILD_DIR}/craft
 
 # Default NGINX Config
 echo "-----> Setting up NGINX"
