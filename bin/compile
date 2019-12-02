@@ -56,6 +56,7 @@ if [[ ! -f "./bin/start.sh" ]]; then
   echo "No start script, creating bin/start.sh'."
   cat >>bin/start.sh <<EOF
   #!/usr/bin/env bash
+  cd ~
   # Write directories if not there
   mkdir -p ./config ./storage ./vendor
   mkdir -p ./storage/logs ./storage/runtime ./storage/backups
